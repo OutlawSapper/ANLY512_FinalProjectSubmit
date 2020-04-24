@@ -134,15 +134,17 @@ dt.test = rfDF[-train, ]
 ######################## AI: Full Logistic Model ############################################
 model_logi <- glm(Violation.Type~., data = dt.train, family = 'binomial')
 summary(model_logi)
-probabilities <- model_logi %>% predict(dt.test, type = "response")
-predicted.classes <- ifelse(probabilities > 0.5, "Citation", "Warning")
-cat("The test error of logistic total is", mean(predicted.classes==dt.test$Violation.Type,"\n"))
+preds <- predict(model_logi, newdata = dt.test, type = "response")
+probabilities <- ifelse(preds < 0.5, "Citation", "Warning")
+class.pred = table(probabilities, dt.test$Violation.Type)
+class.pred
+cat("The test error of logistic subset is", 1-sum(diag(class.pred))/sum(class.pred),"\n")
 #############################################################################################
 
 
 
 ######################## AI: Full random forest Model  ######################################
-model <- randomForest(Violation.Type~., data = dt.train, mtry = 4, ntree = 50, localImp = TRUE) #, family = 'binomial')
+model <- randomForest(Violation.Type~., data = dt.train, mtry = 4, ntree = 50, localImp = TRUE)
 preds <- predict(model, newdata = dt.test)
 class.pred = table(preds, dt.test$Violation.Type)
 cat("The test error of RF total is", 1-sum(diag(class.pred))/sum(class.pred), "\n")
@@ -211,24 +213,26 @@ data.frame(
 
 
 ############Quick look
-coef(reg.fit1, id = 50)
+sort(coef(reg.fit1, id = 128), decreasing = FALSE)[1:50]
 #######################
 
 
 ########################## AI: Re-Run of Logistic model with subset #########################
 ##SubAgency, Temperature, Cloud.Cover, Relative.Humidity, Conditions, Accident, Belts, Personal.Injury, Property.Damage, Search.Conducted, VehicleType, Year, Color, Race, Gender, Arrest, Asset.Type, Highway, MajorRoad, ShortCharge, VehState
-sub_model <- glm(Violation.Type~SubAgency+Temperature+Cloud.Cover+Relative.Humidity+Conditions+Accident+Belts+Personal.Injury+Property.Damage+Search.Conducted+VehicleType+Year+Color+Race+Gender+Arrest+Asset.Type+Highway+MajorRoad+ShortCharge+VehState, data = dt.train, family = 'binomial')
+sub_model <- glm(Violation.Type~Accident+Personal.Injury+Property.Damage+Search.Conducted+VehicleType+Color+Race+Gender+Arrest+Asset.Type+Highway+ShortCharge+VehState+ MultiInfr, data = dt.train, family = 'binomial')
 preds <- predict(sub_model, newdata = dt.test, type = "response")
-probabilities <- ifelse(probabilities > 0.5, "Citation", "Warning")
+probabilities <- ifelse(preds < 0.5, "Citation", "Warning")
 class.pred = table(probabilities, dt.test$Violation.Type)
+class.pred
 cat("The test error of logistic subset is", 1-sum(diag(class.pred))/sum(class.pred),"\n")
 #############################################################################################
 
 
 ########################## AI: Re-Run of RF model with subset ###################################
-sub_model <- randomForest(Violation.Type~SubAgency+Temperature+Cloud.Cover+Relative.Humidity+Conditions+Accident+Belts+Personal.Injury+Property.Damage+Search.Conducted+VehicleType+Year+Color+Race+Gender+Arrest+Asset.Type+Highway+MajorRoad+ShortCharge+VehState, data = dt.train, mtry = 4, ntree = 50, localImp = TRUE) #, family = 'binomial')
+sub_model <- randomForest(Violation.Type~Accident+Personal.Injury+Property.Damage+Search.Conducted+VehicleType+Color+Race+Gender+Arrest+Asset.Type+Highway+ShortCharge+VehState+ MultiInfr, data = dt.train, mtry = 4, ntree = 50, localImp = TRUE) #, family = 'binomial')
 preds <- predict(sub_model, newdata = dt.test)
 class.pred = table(preds, dt.test$Violation.Type)
+class.pred
 cat("The test error of RF subset is", 1-sum(diag(class.pred))/sum(class.pred), "\n")
 #################################################################################################
 
