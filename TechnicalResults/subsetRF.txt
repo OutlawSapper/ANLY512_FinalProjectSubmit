@@ -4,209 +4,222 @@ glm(formula = Violation.Type ~ ., family = "binomial", data = dt.train)
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--2.9004  -0.8685   0.5701   0.8550   3.7588  
+-2.8899  -0.8716   0.5705   0.8569   3.7078  
 
 Coefficients:
                                                             Estimate  Std. Error z value             Pr(>|z|)    
-(Intercept)                                              -27.2033390   1.4719030 -18.482 < 0.0000000000000002 ***
-SubAgency2nd District, Bethesda                           -0.1825707   0.0128247 -14.236 < 0.0000000000000002 ***
-SubAgency3rd District, Silver Spring                      -0.0289484   0.0135473  -2.137             0.032611 *  
-SubAgency4th District, Wheaton                             0.0512245   0.0126770   4.041   0.0000532805422350 ***
-SubAgency5th District, Germantown                         -0.4525011   0.0139629 -32.407 < 0.0000000000000002 ***
-SubAgency6th District, Gaithersburg / Montgomery Village   0.3015363   0.0145249  20.760 < 0.0000000000000002 ***
-SubAgencyHeadquarters and Special Operations              -0.6234957   0.0214007 -29.134 < 0.0000000000000002 ***
-Temperature                                                0.0031149   0.0001954  15.939 < 0.0000000000000002 ***
-Precipitation                                              0.0824983   0.1425634   0.579             0.562806    
-Wind.Speed                                                -0.0012667   0.0008247  -1.536             0.124549    
-Cloud.Cover                                               -0.0022860   0.0006203  -3.685             0.000229 ***
-Relative.Humidity                                         -0.0017555   0.0002110  -8.321 < 0.0000000000000002 ***
-ConditionsOvercast                                         0.1516826   0.0597002   2.541             0.011062 *  
-ConditionsPartially cloudy                                 0.0390298   0.0268141   1.456             0.145512    
-ConditionsRain, Clear                                     -0.0719537   0.1130741  -0.636             0.524554    
-ConditionsRain, Overcast                                   0.0350108   0.0730156   0.479             0.631585    
-ConditionsRain, Partially cloudy                          -0.0013893   0.1089071  -0.013             0.989822    
-AccidentYes                                               -2.4440183   0.0377566 -64.731 < 0.0000000000000002 ***
-BeltsYes                                                  -0.5462526   0.0241537 -22.616 < 0.0000000000000002 ***
-Personal.InjuryYes                                        -1.8665020   0.0499210 -37.389 < 0.0000000000000002 ***
-Property.DamageYes                                        -1.6867389   0.0373820 -45.122 < 0.0000000000000002 ***
-Search.ConductedYes                                       -0.6643191   0.0309604 -21.457 < 0.0000000000000002 ***
-VehicleType02 - Automobile                                 0.1741466   0.0389934   4.466   0.0000079674093408 ***
-VehicleType03 - Station Wagon                              0.0243873   0.0502404   0.485             0.627383    
-VehicleType04 - Limousine                                  0.1008546   0.2007420   0.502             0.615380    
-VehicleType05 - Light Duty Truck                          -0.1141780   0.0424285  -2.691             0.007122 ** 
-VehicleType06 - Heavy Duty Truck                           0.1947934   0.0628097   3.101             0.001927 ** 
-VehicleType07 - Truck/Road Tractor                         0.1078402   0.1284994   0.839             0.401342    
-VehicleType08 - Recreational Vehicle                       0.3459344   0.0810264   4.269   0.0000195994622617 ***
-VehicleType09 - Farm Vehicle                               0.8613107   0.6476066   1.330             0.183521    
-VehicleType10 - Transit Bus                                0.0786841   0.1985437   0.396             0.691879    
-VehicleType11 - Cross Country Bus                          0.8162527   0.8364041   0.976             0.329111    
-VehicleType12 - School Bus                                 1.5984674   0.2816774   5.675   0.0000000138838307 ***
-VehicleType13 - Ambulance(Emerg)                         -11.3146553 119.4680504  -0.095             0.924546    
-VehicleType14 - Ambulance(Non-Emerg)                       9.9236245  51.9473329   0.191             0.848500    
-VehicleType15 - Fire(Emerg)                               -8.1969028  43.2949877  -0.189             0.849837    
-VehicleType17 - Police(Emerg)                              9.0929380 119.4680501   0.076             0.939330    
-VehicleType18 - Police(Non-Emerg)                         -9.6787803  50.0538597  -0.193             0.846671    
-VehicleType19 - Moped                                     -1.0795065   0.1435844  -7.518   0.0000000000000555 ***
-VehicleType20 - Commercial Rig                             0.1640784   0.1571055   1.044             0.296308    
-VehicleType21 - Tandem Trailer                             1.9549189   0.8198587   2.384             0.017104 *  
-VehicleType22 - Mobile Home                               11.4249861  44.2790558   0.258             0.796390    
-VehicleType23 - Travel/Home Trailer                       -2.3694529   1.0714542  -2.211             0.027006 *  
-VehicleType24 - Camper                                    -0.9309042   1.5449786  -0.603             0.546818    
-VehicleType25 - Utility Trailer                           -0.0654818   0.1711911  -0.383             0.702086    
-VehicleType26 - Boat Trailer                              -0.2831694   0.4777494  -0.593             0.553372    
-VehicleType27 - Farm Equipment                             1.7308157   0.9313222   1.858             0.063105 .  
-VehicleType28 - Other                                      0.2241118   0.0486922   4.603   0.0000041721169110 ***
-VehicleType29 - Unknown                                   -0.0184444   0.2602099  -0.071             0.943491    
-Year                                                       0.0150512   0.0006094  24.700 < 0.0000000000000002 ***
-ColorBLACK                                                -0.1816819   0.0386397  -4.702   0.0000025769781729 ***
-ColorBLUE                                                 -0.1618470   0.0400410  -4.042   0.0000529907075539 ***
-ColorBLUE, DARK                                           -0.2049133   0.0448144  -4.572   0.0000048197354469 ***
-ColorBLUE, LIGHT                                          -0.0828852   0.0505511  -1.640             0.101082    
-ColorBRONZE                                               -0.0697619   0.0845352  -0.825             0.409235    
-ColorBROWN                                                -0.1120811   0.0669293  -1.675             0.094009 .  
-ColorCAMOUFLAGE                                            0.2462369   0.7664235   0.321             0.747998    
-ColorCHROME                                               -0.2331648   0.5769851  -0.404             0.686133    
-ColorCOPPER                                               -0.3629960   0.2058992  -1.763             0.077904 .  
-ColorCREAM                                                -0.0803754   0.1781584  -0.451             0.651884    
-ColorGOLD                                                 -0.1815991   0.0436563  -4.160   0.0000318607099445 ***
-ColorGRAY                                                 -0.1105893   0.0391812  -2.823             0.004765 ** 
-ColorGREEN                                                -0.1440852   0.0439148  -3.281             0.001034 ** 
-ColorGREEN, DK                                            -0.2110825   0.0556573  -3.793             0.000149 ***
-ColorGREEN, LGT                                           -0.0062005   0.0654165  -0.095             0.924486    
-ColorMAROON                                               -0.1588127   0.0470224  -3.377             0.000732 ***
-ColorMULTICOLOR                                           -0.4934506   0.1541309  -3.202             0.001367 ** 
-ColorN/A                                                  -0.3335748   0.0719944  -4.633   0.0000035980407838 ***
-ColorORANGE                                               -0.1737601   0.0695457  -2.499             0.012472 *  
-ColorPINK                                                  0.1701303   0.3396901   0.501             0.616484    
-ColorPURPLE                                               -0.2741043   0.0954959  -2.870             0.004101 ** 
-ColorRED                                                  -0.1273752   0.0399684  -3.187             0.001438 ** 
-ColorSILVER                                               -0.1237291   0.0387266  -3.195             0.001399 ** 
-ColorTAN                                                  -0.0726958   0.0473596  -1.535             0.124791    
-ColorWHITE                                                -0.1731667   0.0388880  -4.453   0.0000084695855161 ***
-ColorYELLOW                                               -0.0716797   0.0727002  -0.986             0.324151    
-RaceBLACK                                                 -0.2697520   0.0161220 -16.732 < 0.0000000000000002 ***
-RaceHISPANIC                                              -0.5308239   0.0166405 -31.900 < 0.0000000000000002 ***
-RaceNATIVE AMERICAN                                        0.0017065   0.0968453   0.018             0.985941    
-RaceOTHER                                                 -0.0106392   0.0205890  -0.517             0.605335    
-RaceWHITE                                                 -0.1478077   0.0160048  -9.235 < 0.0000000000000002 ***
-GenderM                                                   -0.2735305   0.0075955 -36.012 < 0.0000000000000002 ***
-GenderU                                                    0.4513151   0.1042248   4.330   0.0000148969369054 ***
-ArrestTRUE                                                -1.6324248   0.0401636 -40.644 < 0.0000000000000002 ***
-Asset.TypeB - Unmarked Patrol                             -0.2118658   0.0194578 -10.888 < 0.0000000000000002 ***
-Asset.TypeC - Marked VASCAR                               -0.3578414   0.2449165  -1.461             0.143995    
-Asset.TypeD - Unmarked VASCAR                             -0.0232091   0.2941463  -0.079             0.937109    
-Asset.TypeE - Marked Stationary Radar                     -0.3923844   0.0389163 -10.083 < 0.0000000000000002 ***
-Asset.TypeF - Unmarked Stationary Radar                    0.2939693   0.2105707   1.396             0.162696    
-Asset.TypeG - Marked Moving Radar (Stationary)            -1.2037588   0.0324131 -37.138 < 0.0000000000000002 ***
-Asset.TypeH - Unmarked Moving Radar (Stationary)          -0.0359425   0.0888900  -0.404             0.685957    
-Asset.TypeI - Marked Moving Radar (Moving)                -2.0093584   0.0806360 -24.919 < 0.0000000000000002 ***
-Asset.TypeJ - Unmarked Moving Radar (Moving)              -0.6528763   0.0956654  -6.825   0.0000000000088181 ***
-Asset.TypeK - Aircraft Assist                              9.5950865  56.5675610   0.170             0.865308    
-Asset.TypeL - Motorcycle                                  -0.9664039   0.0415867 -23.238 < 0.0000000000000002 ***
-Asset.TypeM - Marked (Off-Duty)                            0.1396701   0.0796747   1.753             0.079601 .  
-Asset.TypeN - Unmarked (Off-Duty)                         -1.2116017   0.3219632  -3.763             0.000168 ***
-Asset.TypeO - Foot Patrol                                 -0.4772243   0.0434535 -10.982 < 0.0000000000000002 ***
-Asset.TypeP - Mounted Patrol                               0.6215955   0.2600452   2.390             0.016833 *  
-Asset.TypeQ - Marked Laser                                -0.5464877   0.0127278 -42.937 < 0.0000000000000002 ***
-Asset.TypeR - Unmarked Laser                              -0.2891253   0.0605755  -4.773   0.0000018152653823 ***
-Asset.TypeS - License Plate Recognition                   -1.6421598   0.0649259 -25.293 < 0.0000000000000002 ***
-HighwayTRUE                                               -0.3739140   0.0157150 -23.793 < 0.0000000000000002 ***
-MajorRoadTRUE                                             -0.1412987   0.0078463 -18.008 < 0.0000000000000002 ***
-ShortCharge11                                              0.7463523   0.8179393   0.912             0.361517    
-ShortCharge12                                             -0.0450945   1.0390616  -0.043             0.965383    
-ShortCharge13                                             -1.0037601   0.8158870  -1.230             0.218597    
-ShortCharge14                                             -3.8893941   0.8278429  -4.698   0.0000026242953390 ***
-ShortCharge15                                             -1.4233880   0.8766486  -1.624             0.104446    
-ShortCharge16                                             -2.8966675   0.8159236  -3.550             0.000385 ***
-ShortCharge17                                             -1.5463017   0.8162116  -1.894             0.058160 .  
-ShortCharge18                                             -1.3429360   0.9131775  -1.471             0.141394    
-ShortCharge20                                             -3.9542309   0.8194068  -4.826   0.0000013949571751 ***
-ShortCharge21                                             -1.2930649   0.8158636  -1.585             0.112988    
-ShortCharge22                                             -0.1239803   0.8159537  -0.152             0.879230    
-ShortCharge23                                              0.8113182   0.8173290   0.993             0.320883    
-ShortCharge24                                             -0.7106687   0.8289109  -0.857             0.391250    
-ShortCharge25                                             -0.2733386   0.8304652  -0.329             0.742051    
-ShortCharge26                                             -1.4158045   0.9228334  -1.534             0.124982    
-ShortCharge27                                             -1.4509954   1.0833446  -1.339             0.180451    
-VehStateOther                                             -0.2594298   0.0163719 -15.846 < 0.0000000000000002 ***
-DLStateOther                                              -0.0130632   0.0162817  -0.802             0.422365    
-MultiInfrTRUE                                             -0.6608480   0.0082200 -80.395 < 0.0000000000000002 ***
-DoWMonday                                                 -0.0262933   0.0128790  -2.042             0.041195 *  
-DoWSaturday                                               -0.0110839   0.0129287  -0.857             0.391273    
-DoWSunday                                                 -0.0334738   0.0129130  -2.592             0.009535 ** 
-DoWThursday                                               -0.0459827   0.0129304  -3.556             0.000376 ***
-DoWTuesday                                                -0.0252456   0.0129724  -1.946             0.051642 .  
-DoWWednesday                                              -0.0298689   0.0129874  -2.300             0.021458 *  
-Hour20                                                     0.0071088   0.0070932   1.002             0.316248    
+(Intercept)                                              -28.8303657   1.4741480 -19.557 < 0.0000000000000002 ***
+SubAgency2nd District, Bethesda                           -0.1851515   0.0128189 -14.444 < 0.0000000000000002 ***
+SubAgency3rd District, Silver Spring                      -0.0306427   0.0135360  -2.264             0.023587 *  
+SubAgency4th District, Wheaton                             0.0520259   0.0126725   4.105   0.0000403591785029 ***
+SubAgency5th District, Germantown                         -0.4517087   0.0139598 -32.358 < 0.0000000000000002 ***
+SubAgency6th District, Gaithersburg / Montgomery Village   0.2881191   0.0144980  19.873 < 0.0000000000000002 ***
+SubAgencyHeadquarters and Special Operations              -0.6375663   0.0214501 -29.723 < 0.0000000000000002 ***
+Temperature                                                0.0032733   0.0001953  16.763 < 0.0000000000000002 ***
+Precipitation                                              0.1897012   0.1416459   1.339             0.180485    
+Wind.Speed                                                -0.0011482   0.0008246  -1.392             0.163800    
+Cloud.Cover                                               -0.0017183   0.0006205  -2.769             0.005620 ** 
+Relative.Humidity                                         -0.0017853   0.0002106  -8.477 < 0.0000000000000002 ***
+ConditionsOvercast                                         0.0953120   0.0597096   1.596             0.110431    
+ConditionsPartially cloudy                                 0.0147762   0.0268195   0.551             0.581667    
+ConditionsRain, Clear                                      0.0282333   0.1112803   0.254             0.799717    
+ConditionsRain, Overcast                                  -0.0402695   0.0728650  -0.553             0.580497    
+ConditionsRain, Partially cloudy                           0.0509520   0.1121990   0.454             0.649741    
+AccidentYes                                               -2.4784101   0.0381938 -64.890 < 0.0000000000000002 ***
+BeltsYes                                                  -0.5409896   0.0242029 -22.352 < 0.0000000000000002 ***
+Personal.InjuryYes                                        -1.8923604   0.0507970 -37.253 < 0.0000000000000002 ***
+Property.DamageYes                                        -1.6744266   0.0376089 -44.522 < 0.0000000000000002 ***
+Search.ConductedYes                                       -0.6759464   0.0309088 -21.869 < 0.0000000000000002 ***
+VehicleType02 - Automobile                                 0.1958814   0.0390698   5.014   0.0000005341243227 ***
+VehicleType03 - Station Wagon                              0.0705931   0.0502119   1.406             0.159752    
+VehicleType04 - Limousine                                  0.1873669   0.2028626   0.924             0.355687    
+VehicleType05 - Light Duty Truck                          -0.0786154   0.0424747  -1.851             0.064188 .  
+VehicleType06 - Heavy Duty Truck                           0.1968686   0.0630176   3.124             0.001784 ** 
+VehicleType07 - Truck/Road Tractor                         0.1524320   0.1280899   1.190             0.234031    
+VehicleType08 - Recreational Vehicle                       0.4420452   0.0814505   5.427   0.0000000572569786 ***
+VehicleType09 - Farm Vehicle                               1.0268200   0.6642548   1.546             0.122147    
+VehicleType10 - Transit Bus                               -0.1544835   0.1930826  -0.800             0.423658    
+VehicleType11 - Cross Country Bus                         10.2269496  43.8106088   0.233             0.815423    
+VehicleType12 - School Bus                                 1.8214648   0.2782991   6.545   0.0000000000594997 ***
+VehicleType13 - Ambulance(Emerg)                         -11.2779562 119.4680504  -0.094             0.924790    
+VehicleType14 - Ambulance(Non-Emerg)                      10.1334857  57.9236138   0.175             0.861122    
+VehicleType15 - Fire(Emerg)                               -8.1537844  43.3020841  -0.188             0.850641    
+VehicleType17 - Police(Emerg)                              9.7137502  81.3220848   0.119             0.904921    
+VehicleType18 - Police(Non-Emerg)                         -0.6940324   1.0599168  -0.655             0.512597    
+VehicleType19 - Moped                                     -1.0874390   0.1421937  -7.648   0.0000000000000205 ***
+VehicleType20 - Commercial Rig                             0.2170763   0.1571114   1.382             0.167073    
+VehicleType21 - Tandem Trailer                             1.8883507   0.7882763   2.396             0.016596 *  
+VehicleType22 - Mobile Home                               11.7712265  51.9436912   0.227             0.820723    
+VehicleType23 - Travel/Home Trailer                       -0.7806011   0.9206074  -0.848             0.396483    
+VehicleType24 - Camper                                     0.0596843   2.0742888   0.029             0.977045    
+VehicleType25 - Utility Trailer                           -0.1407592   0.1699046  -0.828             0.407410    
+VehicleType26 - Boat Trailer                              -0.2147680   0.4168398  -0.515             0.606393    
+VehicleType27 - Farm Equipment                             1.7607871   0.9428766   1.867             0.061837 .  
+VehicleType28 - Other                                      0.2417103   0.0486836   4.965   0.0000006873017878 ***
+VehicleType29 - Unknown                                    0.2437958   0.2616116   0.932             0.351388    
+Year                                                       0.0158839   0.0006099  26.042 < 0.0000000000000002 ***
+ColorBLACK                                                -0.1995878   0.0384513  -5.191   0.0000002095405478 ***
+ColorBLUE                                                 -0.1846482   0.0398673  -4.632   0.0000036291073017 ***
+ColorBLUE, DARK                                           -0.2147053   0.0447343  -4.800   0.0000015900826188 ***
+ColorBLUE, LIGHT                                          -0.1028707   0.0503274  -2.044             0.040951 *  
+ColorBRONZE                                               -0.0303859   0.0846988  -0.359             0.719780    
+ColorBROWN                                                -0.1292802   0.0661382  -1.955             0.050619 .  
+ColorCAMOUFLAGE                                           -0.2845953   0.6272204  -0.454             0.650016    
+ColorCHROME                                                0.2100507   0.5773644   0.364             0.716000    
+ColorCOPPER                                               -0.1737299   0.2115709  -0.821             0.411565    
+ColorCREAM                                                 0.0489598   0.1791901   0.273             0.784678    
+ColorGOLD                                                 -0.2004127   0.0434858  -4.609   0.0000040521867280 ***
+ColorGRAY                                                 -0.1315814   0.0389902  -3.375             0.000739 ***
+ColorGREEN                                                -0.1534965   0.0437471  -3.509             0.000450 ***
+ColorGREEN, DK                                            -0.2236692   0.0556081  -4.022   0.0000576479324694 ***
+ColorGREEN, LGT                                           -0.0624000   0.0643852  -0.969             0.332462    
+ColorMAROON                                               -0.1813904   0.0467998  -3.876             0.000106 ***
+ColorMULTICOLOR                                           -0.4253236   0.1551626  -2.741             0.006123 ** 
+ColorN/A                                                  -0.3440302   0.0719964  -4.778   0.0000017666471926 ***
+ColorORANGE                                               -0.1748410   0.0700016  -2.498             0.012501 *  
+ColorPINK                                                  0.4673635   0.3549853   1.317             0.187982    
+ColorPURPLE                                               -0.3621914   0.0940395  -3.851             0.000117 ***
+ColorRED                                                  -0.1364913   0.0397842  -3.431             0.000602 ***
+ColorSILVER                                               -0.1423494   0.0385383  -3.694             0.000221 ***
+ColorTAN                                                  -0.0607462   0.0472736  -1.285             0.198795    
+ColorWHITE                                                -0.1915970   0.0387038  -4.950   0.0000007408564961 ***
+ColorYELLOW                                               -0.0474963   0.0727312  -0.653             0.513731    
+RaceBLACK                                                 -0.2524830   0.0161011 -15.681 < 0.0000000000000002 ***
+RaceHISPANIC                                              -0.5156042   0.0166263 -31.011 < 0.0000000000000002 ***
+RaceNATIVE AMERICAN                                        0.0384411   0.0991858   0.388             0.698337    
+RaceOTHER                                                 -0.0215327   0.0205322  -1.049             0.294303    
+RaceWHITE                                                 -0.1330876   0.0159882  -8.324 < 0.0000000000000002 ***
+GenderM                                                   -0.2711811   0.0075946 -35.707 < 0.0000000000000002 ***
+GenderU                                                    0.4835672   0.1037933   4.659   0.0000031783698453 ***
+ArrestTRUE                                                -1.6328122   0.0402867 -40.530 < 0.0000000000000002 ***
+Asset.TypeB - Unmarked Patrol                             -0.1854192   0.0195360  -9.491 < 0.0000000000000002 ***
+Asset.TypeC - Marked VASCAR                               -0.3296676   0.2349471  -1.403             0.160570    
+Asset.TypeD - Unmarked VASCAR                              0.0976257   0.2881454   0.339             0.734755    
+Asset.TypeE - Marked Stationary Radar                     -0.3834527   0.0389307  -9.850 < 0.0000000000000002 ***
+Asset.TypeF - Unmarked Stationary Radar                    0.3847358   0.2104061   1.829             0.067469 .  
+Asset.TypeG - Marked Moving Radar (Stationary)            -1.1974419   0.0324345 -36.919 < 0.0000000000000002 ***
+Asset.TypeH - Unmarked Moving Radar (Stationary)          -0.0757275   0.0870466  -0.870             0.384319    
+Asset.TypeI - Marked Moving Radar (Moving)                -2.0380563   0.0801160 -25.439 < 0.0000000000000002 ***
+Asset.TypeJ - Unmarked Moving Radar (Moving)              -0.5310884   0.0960440  -5.530   0.0000000320893717 ***
+Asset.TypeK - Aircraft Assist                              0.3287362   0.8352877   0.394             0.693906    
+Asset.TypeL - Motorcycle                                  -0.9488458   0.0415144 -22.856 < 0.0000000000000002 ***
+Asset.TypeM - Marked (Off-Duty)                            0.0915062   0.0787732   1.162             0.245381    
+Asset.TypeN - Unmarked (Off-Duty)                         -1.2808452   0.3238237  -3.955   0.0000764136717296 ***
+Asset.TypeO - Foot Patrol                                 -0.5331766   0.0431739 -12.350 < 0.0000000000000002 ***
+Asset.TypeP - Mounted Patrol                               0.6772981   0.2623797   2.581             0.009841 ** 
+Asset.TypeQ - Marked Laser                                -0.5536005   0.0126980 -43.597 < 0.0000000000000002 ***
+Asset.TypeR - Unmarked Laser                              -0.3138494   0.0600223  -5.229   0.0000001705387176 ***
+Asset.TypeS - License Plate Recognition                   -1.6474125   0.0640413 -25.724 < 0.0000000000000002 ***
+HighwayTRUE                                               -0.3781968   0.0157327 -24.039 < 0.0000000000000002 ***
+MajorRoadTRUE                                             -0.1362954   0.0078454 -17.373 < 0.0000000000000002 ***
+ShortCharge11                                              0.6604497   0.8215170   0.804             0.421432    
+ShortCharge12                                             -0.1484282   1.0378511  -0.143             0.886278    
+ShortCharge13                                             -1.0868033   0.8195218  -1.326             0.184792    
+ShortCharge14                                             -3.9425399   0.8316616  -4.741   0.0000021313076950 ***
+ShortCharge15                                             -1.4888649   0.8864164  -1.680             0.093026 .  
+ShortCharge16                                             -2.9692513   0.8195586  -3.623             0.000291 ***
+ShortCharge17                                             -1.6308954   0.8198396  -1.989             0.046670 *  
+ShortCharge18                                             -1.1117691   0.8970601  -1.239             0.215217    
+ShortCharge20                                             -4.0226367   0.8230122  -4.888   0.0000010202088397 ***
+ShortCharge21                                             -1.3672584   0.8195007  -1.668             0.095236 .  
+ShortCharge22                                             -0.1956480   0.8195889  -0.239             0.811327    
+ShortCharge23                                              0.7494066   0.8209776   0.913             0.361336    
+ShortCharge24                                             -0.6828149   0.8341431  -0.819             0.413025    
+ShortCharge25                                             -0.4273450   0.8339159  -0.512             0.608332    
+ShortCharge26                                             -1.4553648   0.9367238  -1.554             0.120262    
+ShortCharge27                                             -1.3306108   1.0480559  -1.270             0.204227    
+VehStateOther                                             -0.2544725   0.0163279 -15.585 < 0.0000000000000002 ***
+DLStateOther                                              -0.0141735   0.0162645  -0.871             0.383516    
+MultiInfrTRUE                                             -0.6613836   0.0082123 -80.535 < 0.0000000000000002 ***
+DoWMonday                                                 -0.0315037   0.0128697  -2.448             0.014369 *  
+DoWSaturday                                               -0.0244336   0.0129054  -1.893             0.058320 .  
+DoWSunday                                                 -0.0258677   0.0129194  -2.002             0.045260 *  
+DoWThursday                                               -0.0526086   0.0129152  -4.073   0.0000463377767262 ***
+DoWTuesday                                                -0.0296939   0.0129554  -2.292             0.021905 *  
+DoWWednesday                                              -0.0309579   0.0129909  -2.383             0.017171 *  
+Hour20                                                     0.0118617   0.0070894   1.673             0.094294 .  
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
-    Null deviance: 618956  on 459766  degrees of freedom
-Residual deviance: 496093  on 459637  degrees of freedom
-AIC: 496353
+    Null deviance: 619146  on 459766  degrees of freedom
+Residual deviance: 496446  on 459637  degrees of freedom
+AIC: 496706
 
 Number of Fisher Scoring iterations: 9
 
-The test error of logistic total is 0.2692662
-The test error of RF total is 0.1777766 
-
+             
+probabilities Citation Warning
+     Citation    22467    7304
+     Warning     23398   61773
+The test error of logistic subset is 0.2671086 
+The test error of RF total is 0.1768544 
+null device 
+          1 
+null device 
+          1 
     Method BIC RSS Adj.R2 CP
-1   Foward  51 129    107 83
-2 Backward  52 129    104 90
+1   Foward  53 129    110 99
+2 Backward  56 129    105 97
+                                   (Intercept)                                  ShortCharge14 
+                                   -3.97962721                                    -0.67845819 
+              VehicleType13 - Ambulance(Emerg)                                  ShortCharge16 
+                                   -0.65204655                                    -0.57500761 
+                                 ShortCharge20     Asset.TypeI - Marked Moving Radar (Moving) 
+                                   -0.57189633                                    -0.41870392 
+                                   AccidentYes                                  ShortCharge17 
+                                   -0.34742833                                    -0.30116840 
+                            Personal.InjuryYes        Asset.TypeS - License Plate Recognition 
+                                   -0.27307406                                    -0.27090214 
+             Asset.TypeN - Unmarked (Off-Duty)                                  ShortCharge15 
+                                   -0.26667653                                    -0.26362297 
+                                 ShortCharge26                                  ShortCharge27 
+                                   -0.26147863                                    -0.25647737 
+Asset.TypeG - Marked Moving Radar (Stationary)                                     ArrestTRUE 
+                                   -0.25628567                                    -0.25132886 
+                                 ShortCharge21                             Property.DamageYes 
+                                   -0.23815884                                    -0.23023301 
+                         VehicleType19 - Moped                       Asset.TypeL - Motorcycle 
+                                   -0.20713261                                    -0.18999383 
+                                 ShortCharge18            VehicleType23 - Travel/Home Trailer 
+                                   -0.18593083                                    -0.18097007 
+                                 ShortCharge13                    VehicleType15 - Fire(Emerg) 
+                                   -0.17705376                                    -0.17512692 
+             VehicleType18 - Police(Non-Emerg)                            Search.ConductedYes 
+                                   -0.13391601                                    -0.13059945 
+                                 MultiInfrTRUE   SubAgencyHeadquarters and Special Operations 
+                                   -0.12734603                                    -0.12345633 
+  Asset.TypeJ - Unmarked Moving Radar (Moving)                                  ShortCharge24 
+                                   -0.11121996                                    -0.10865522 
+                    Asset.TypeQ - Marked Laser                      Asset.TypeO - Foot Patrol 
+                                   -0.10574939                                    -0.09550334 
+                                  RaceHISPANIC                                       BeltsYes 
+                                   -0.09545848                                    -0.09012718 
+             SubAgency5th District, Germantown                                    HighwayTRUE 
+                                   -0.08563924                                    -0.07657209 
+                               ColorMULTICOLOR                                    ColorPURPLE 
+                                   -0.07346243                                    -0.07134080 
+         Asset.TypeE - Marked Stationary Radar                    Asset.TypeC - Marked VASCAR 
+                                   -0.06982074                                    -0.06648716 
+                                 ShortCharge25                   Asset.TypeR - Unmarked Laser 
+                                   -0.06097353                                    -0.05794080 
+                                      ColorN/A                                ColorCAMOUFLAGE 
+                                   -0.05549185                                    -0.05156210 
+                                       GenderM                                  VehStateOther 
+                                   -0.04936674                                    -0.04756875 
+                                     RaceBLACK                                 ColorGREEN, DK 
+                                   -0.04744881                                    -0.04096130 
+                               ColorBLUE, DARK                                  ShortCharge22 
+                                   -0.03990752                                    -0.03973848 
 
-                                             (Intercept)                          SubAgency2nd District, Bethesda 
-                                           -3.8482851206                                            -0.0283615579 
-                          SubAgency4th District, Wheaton                        SubAgency5th District, Germantown 
-                                            0.0124204363                                            -0.0817540892 
-SubAgency6th District, Gaithersburg / Montgomery Village             SubAgencyHeadquarters and Special Operations 
-                                            0.0546995370                                            -0.1163275260 
-                                             Temperature                                              Cloud.Cover 
-                                            0.0005888428                                            -0.0003026383 
-                                       Relative.Humidity                                       ConditionsOvercast 
-                                           -0.0003157375                                             0.0159832140 
-                                             AccidentYes                                                 BeltsYes 
-                                           -0.3459174922                                            -0.0913942630 
-                                      Personal.InjuryYes                                       Property.DamageYes 
-                                           -0.2739297913                                            -0.2325161040 
-                                     Search.ConductedYes                            VehicleType03 - Station Wagon 
-                                           -0.1285765445                                            -0.0249216235 
-                        VehicleType05 - Light Duty Truck                                    VehicleType19 - Moped 
-                                           -0.0520923679                                            -0.2470992668 
-                                                    Year                                               ColorBLACK 
-                                            0.0029005683                                            -0.0097863489 
-                                              ColorWHITE                                                RaceBLACK 
-                                           -0.0076726439                                            -0.0502891686 
-                                            RaceHISPANIC                                                RaceWHITE 
-                                           -0.0978472035                                            -0.0267990698 
-                                                 GenderM                                                  GenderU 
-                                           -0.0502860121                                             0.0605862758 
-                                              ArrestTRUE                            Asset.TypeB - Unmarked Patrol 
-                                           -0.2538900932                                            -0.0393599609 
-                   Asset.TypeE - Marked Stationary Radar           Asset.TypeG - Marked Moving Radar (Stationary) 
-                                           -0.0708066452                                            -0.2561652591 
-              Asset.TypeI - Marked Moving Radar (Moving)             Asset.TypeJ - Unmarked Moving Radar (Moving) 
-                                           -0.4126208984                                            -0.1380796254 
-                                Asset.TypeL - Motorcycle                        Asset.TypeN - Unmarked (Off-Duty) 
-                                           -0.1935966091                                            -0.2451716295 
-                               Asset.TypeO - Foot Patrol                               Asset.TypeQ - Marked Laser 
-                                           -0.0837241005                                            -0.1040215585 
-                            Asset.TypeR - Unmarked Laser                  Asset.TypeS - License Plate Recognition 
-                                           -0.0506862462                                            -0.2668058004 
-                                             HighwayTRUE                                            MajorRoadTRUE 
-                                           -0.0744255423                                            -0.0274323215 
-                                           ShortCharge11                                            ShortCharge13 
-                                            0.1989642603                                            -0.0687598125 
-                                           ShortCharge14                                            ShortCharge16 
-                                           -0.5780306765                                            -0.4689915345 
-                                           ShortCharge17                                            ShortCharge20 
-                                           -0.1928875610                                            -0.4669076944 
-                                           ShortCharge21                                            ShortCharge22 
-                                           -0.1314784909                                             0.0664130518 
-                                           ShortCharge23                                            VehStateOther 
-                                            0.1391877673                                            -0.0502512560 
-                                           MultiInfrTRUE 
-                                           -0.1273605963 
-The test error of logistic subset is 0.7307338 
-The test error of RF subset is 0.2016582 
+             
+probabilities Citation Warning
+     Citation    21172    6464
+     Warning     24693   62613
+The test error of logistic subset is 0.2710671 
+          
+preds      Citation Warning
+  Citation    23328    7413
+  Warning     22537   61664
+The test error of RF subset is 0.2605662 
