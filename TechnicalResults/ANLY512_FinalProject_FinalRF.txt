@@ -1,0 +1,291 @@
+
+########## Final RF Training Results ##########
+
+########## 50 Trees ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 4,      ntree = 50, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 50
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 18.02%
+Confusion matrix:
+         Citation Warning class.error
+Citation   110072   51178  0.31738295
+Warning     21340  219782  0.08850292
+
+########## 100 Trees ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 4,      ntree = 100, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 100
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 17.63%
+Confusion matrix:
+         Citation Warning class.error
+Citation   110302   50948  0.31595659
+Warning     19993  221129  0.08291653
+
+########## 150 Trees ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 4,      ntree = 150, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 150
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 17.59%
+Confusion matrix:
+         Citation Warning class.error
+Citation   109650   51600  0.32000000
+Warning     19183  221939  0.07955724
+
+########## 2 Mtry ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 2,      ntree = 50, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 50
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 23.84%
+Confusion matrix:
+         Citation Warning class.error
+Citation    80573   80677  0.50032248
+Warning     15233  225889  0.06317549
+
+########## 6 Mtry ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 6,      ntree = 50, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 50
+No. of variables tried at each split: 6
+
+        OOB estimate of  error rate: 17.81%
+Confusion matrix:
+         Citation Warning class.error
+Citation   114236   47014   0.2915597
+Warning     24664  216458   0.1022885
+
+########## Final RF Training Results ##########
+
+########## 50 Trees ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 4,      ntree = 50, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 50
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 18.02%
+Confusion matrix:
+         Citation Warning class.error
+Citation   110072   51178  0.31738295
+Warning     21340  219782  0.08850292
+
+########## 100 Trees ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 4,      ntree = 100, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 100
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 17.63%
+Confusion matrix:
+         Citation Warning class.error
+Citation   110302   50948  0.31595659
+Warning     19993  221129  0.08291653
+
+########## 150 Trees ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 4,      ntree = 150, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 150
+No. of variables tried at each split: 4
+
+        OOB estimate of  error rate: 17.59%
+Confusion matrix:
+         Citation Warning class.error
+Citation   109650   51600  0.32000000
+Warning     19183  221939  0.07955724
+
+########## 2 Mtry ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 2,      ntree = 50, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 50
+No. of variables tried at each split: 2
+
+        OOB estimate of  error rate: 23.84%
+Confusion matrix:
+         Citation Warning class.error
+Citation    80573   80677  0.50032248
+Warning     15233  225889  0.06317549
+
+########## 6 Mtry ##########
+
+Call:
+ randomForest(formula = Violation.Type ~ ., data = trainDF, mtry = 6,      ntree = 50, importance = TRUE) 
+               Type of random forest: classification
+                     Number of trees: 50
+No. of variables tried at each split: 6
+
+        OOB estimate of  error rate: 17.81%
+Confusion matrix:
+         Citation Warning class.error
+Citation   114236   47014   0.2915597
+Warning     24664  216458   0.1022885
+
+########## Final RF Training Results Confusion Matrix ##########
+
+########## 50 Trees Confusion Matrix ##########
+Confusion Matrix and Statistics
+
+          Reference
+Prediction Citation Warning
+  Citation    64853    3729
+  Warning     12445  111750
+                                          
+               Accuracy : 0.9161          
+                 95% CI : (0.9149, 0.9173)
+    No Information Rate : 0.599           
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.822           
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.8390          
+            Specificity : 0.9677          
+         Pos Pred Value : 0.9456          
+         Neg Pred Value : 0.8998          
+             Prevalence : 0.4010          
+         Detection Rate : 0.3364          
+   Detection Prevalence : 0.3558          
+      Balanced Accuracy : 0.9034          
+                                          
+       'Positive' Class : Citation        
+                                          
+
+########## 100 Trees Confusion Matrix ##########
+Confusion Matrix and Statistics
+
+          Reference
+Prediction Citation Warning
+  Citation    65003    3601
+  Warning     12295  111878
+                                          
+               Accuracy : 0.9175          
+                 95% CI : (0.9163, 0.9188)
+    No Information Rate : 0.599           
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.8251          
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.8409          
+            Specificity : 0.9688          
+         Pos Pred Value : 0.9475          
+         Neg Pred Value : 0.9010          
+             Prevalence : 0.4010          
+         Detection Rate : 0.3372          
+   Detection Prevalence : 0.3559          
+      Balanced Accuracy : 0.9049          
+                                          
+       'Positive' Class : Citation        
+                                          
+
+########## 150 Trees Confusion Matrix ##########
+Confusion Matrix and Statistics
+
+          Reference
+Prediction Citation Warning
+  Citation    64877    3478
+  Warning     12421  112001
+                                          
+               Accuracy : 0.9175          
+                 95% CI : (0.9163, 0.9188)
+    No Information Rate : 0.599           
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.825           
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.8393          
+            Specificity : 0.9699          
+         Pos Pred Value : 0.9491          
+         Neg Pred Value : 0.9002          
+             Prevalence : 0.4010          
+         Detection Rate : 0.3365          
+   Detection Prevalence : 0.3546          
+      Balanced Accuracy : 0.9046          
+                                          
+       'Positive' Class : Citation        
+                                          
+
+########## 2 Mtry Confusion Matrix ##########
+Confusion Matrix and Statistics
+
+          Reference
+Prediction Citation Warning
+  Citation    39986    5982
+  Warning     37312  109497
+                                          
+               Accuracy : 0.7754          
+                 95% CI : (0.7735, 0.7773)
+    No Information Rate : 0.599           
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.4989          
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.5173          
+            Specificity : 0.9482          
+         Pos Pred Value : 0.8699          
+         Neg Pred Value : 0.7458          
+             Prevalence : 0.4010          
+         Detection Rate : 0.2074          
+   Detection Prevalence : 0.2385          
+      Balanced Accuracy : 0.7327          
+                                          
+       'Positive' Class : Citation        
+                                          
+
+########## 6 Mtry Confusion Matrix ##########
+Confusion Matrix and Statistics
+
+          Reference
+Prediction Citation Warning
+  Citation    68782    4215
+  Warning      8516  111264
+                                          
+               Accuracy : 0.934           
+                 95% CI : (0.9328, 0.9351)
+    No Information Rate : 0.599           
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.8613          
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.8898          
+            Specificity : 0.9635          
+         Pos Pred Value : 0.9423          
+         Neg Pred Value : 0.9289          
+             Prevalence : 0.4010          
+         Detection Rate : 0.3568          
+   Detection Prevalence : 0.3787          
+      Balanced Accuracy : 0.9267          
+                                          
+       'Positive' Class : Citation        
+                                          

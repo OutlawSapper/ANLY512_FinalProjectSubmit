@@ -1,0 +1,239 @@
+---
+title: "512 Final - Logistic Regression"
+author: "Douglas Post"
+date: "April 19, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir ="C://Users/postd/ANLY512_FinalProject" )
+```
+
+### Import Libraries
+
+```{r,warning=FALSE,message=FALSE}
+library(ggplot2)
+library(doParallel)
+library(mgcv)
+library(parallel)
+library(rockchalk)
+library(cluster)
+library(effects)
+library(reshape2)
+library(purrr)
+library(plyr)
+library(dplyr)
+library(dendextend)
+```
+
+### Load Data and Change Categorical Variable Levels
+
+```{r,echo=FALSE}
+TrafficDF <- read.csv('Traffic_Violations_Clean.csv', header = TRUE)
+TrafficDF <- subset(TrafficDF, select = -c(X,Commercial.License,Commercial.Vehicle))
+# Set variable types correctly
+TrafficDF$SeqID        <- as.character(TrafficDF$SeqID)   #unqiue case number
+TrafficDF$Date.time    <- as.POSIXlt(TrafficDF$Date.time, format = '%Y-%m-%d %H:%M:%S')  #convert to datetime bject
+TrafficDF$Description  <- as.character(TrafficDF$Description)   #relatively unique inputs for each
+TrafficDF$Location     <- as.character(TrafficDF$Location)   #relatively unique inputs for each
+TrafficDF$Year         <- as.integer(as.character(TrafficDF$Year))   #convert to INT for easier manipulation
+TrafficDF$Make         <- as.character(TrafficDF$Make)   #too many to types to check against 
+TrafficDF$Model        <- as.character(TrafficDF$Model)   #relatively unique inputs
+TrafficDF$Charge       <- as.character(TrafficDF$Charge)   #relatively unique inputs
+TrafficDF$Driver.City  <- as.character(TrafficDF$Driver.City)   #relatively unique inputs
+# Change some of the vars with a lot of factors
+TrafficDF$VehicleType <- combineLevels(TrafficDF$VehicleType,c("02 - Automobile","03 - Station Wagon",
+                                                               "05 - Light Duty Truck"),
+                                       newLabel = "Cars")
+TrafficDF$VehicleType <- combineLevels(TrafficDF$VehicleType,c("27 - Farm Equipment","28 - Other","29 - Unknown",
+                                                               "09 - Farm Vehicle","08 - Recreational Vehicle",
+                                                               "10 - Transit Bus","12 - School Bus",
+                                                               "11 - Cross Country Bus","04 - Limousine",
+                                                               "26 - Boat Trailer","23 - Travel/Home Trailer",
+                                                               "25 - Utility Trailer","21 - Tandem Trailer",
+                                                               "07 - Truck/Road Tractor","24 - Camper","22 - Mobile Home",
+                                                               "20 - Commercial Rig","13 - Ambulance(Emerg)",
+                                                               "14 - Ambulance(Non-Emerg)","17 - Police(Emerg)",
+                                                               "18 - Police(Non-Emerg)","15 - Fire(Emerg)",
+                                                               "01 - Motorcycle","19 - Moped","06 - Heavy Duty Truck"),
+                                       newLabel = "Non-Cars")
+TrafficDF$Color <- combineLevels(TrafficDF$Color,c("BEIGE","BLACK","BROWN","WHITE",
+                                           "TAN","GRAY","SILVER","BRONZE","CREAM","COPPER"),
+                                 newLabel = "Neutral_Color")
+TrafficDF$Color <- combineLevels(TrafficDF$Color,c("RED","YELLOW","ORANGE","GOLD","MAROON",
+                                           "BLUE, LIGHT","GREEN, LGT","PINK","PURPLE","BLUE, DARK","BLUE",
+                                           "GREEN","GREEN, DK","CAMOUFLAGE","CHROME","MULTICOLOR","N/A"),
+                                 newLabel = "NonNeutral_Color")
+TrafficDF$Conditions <- combineLevels(TrafficDF$Conditions,c("Rain, Clear","Partially cloudy","Overcast","Rain, Overcast","Rain, Partially cloudy"),
+                                 newLabel = "Not_Clear")
+TrafficDF$Race <- combineLevels(TrafficDF$Race,c("OTHER","NATIVE AMERICAN","ASIAN"),
+                                 newLabel = "Other")
+TrafficDF <- TrafficDF[(TrafficDF$Gender == "F") | (TrafficDF$Gender == "M"),]
+```
+
+### Finish Fixing Up Rest of the Vars
+
+```{r}
+#convert Vehicle State and DL State to factors for DMV or otherwise for analysis about ticketing
+TrafficDF$VehState <- as.factor(ifelse(TrafficDF$State %in% c('MD', 'DC', 'VA'), 'DMV', 'Other'))
+TrafficDF$DLState <- as.factor(ifelse(TrafficDF$DL.State %in% c('MD', 'DC', 'VA'), 'DMV', 'Other'))
+#create multiple infraction column for traffic stops with duplicate SeqID
+dupIDs <- unique(TrafficDF[duplicated(TrafficDF$SeqID),'SeqID'])
+TrafficDF$MultiInfr <- TrafficDF$SeqID %in% dupIDs
+TrafficDF$DoW <- as.factor(weekdays(TrafficDF$Date.time))
+TrafficDF$Hour <- format(TrafficDF$Date.time, '%H')
+# Filter for if you are in an accident first
+AccidentDF <- TrafficDF[TrafficDF$Accident=="Yes",]
+AccidentDF <- subset(AccidentDF, select= -c(Date.time,Description,Location,Latitude,
+                                      Longitude,Heat.Index,State,Temperature,
+                                      Model,Charge,Article,Driver.City,Driver.State,
+                                      DL.State,Search.Type,Search.Reason, 
+                                      Search.Disposition,HighHeat,ExCold,MajorRoad,
+                                      ShortCharge,Arrest,Arrest.Reason,HAZMAT,SubAgency,Asset.Type,
+                                      Fatal,Wind.Gust,Wind.Chill,Make,Contributed.To.Accident,
+                                      Search.Conducted,Violation.Type,MultiInfr))
+AccidentDF <- AccidentDF[complete.cases(AccidentDF),]
+# Convert Year to Decades
+AccidentDF$Year <- as.integer(AccidentDF$Year)
+AccidentDF[(AccidentDF$Year>=1980)&(AccidentDF$Year<1990),"Year"] <- "1980s"
+AccidentDF[(AccidentDF$Year>=1990)&(AccidentDF$Year<2000),"Year"] <- "1990s"
+AccidentDF[(AccidentDF$Year>=2000)&(AccidentDF$Year<2010),"Year"] <- "2000s"
+AccidentDF[(AccidentDF$Year>=2010),"Year"] <- "2010s"
+AccidentDF$Year <- as.factor(AccidentDF$Year)
+AccidentDF[AccidentDF$Highway == TRUE,"Highway"] <- "Yes"
+AccidentDF[AccidentDF$Highway == FALSE,"Highway"] <- "No"
+#convert to appropriate types
+AccidentDF$Hour <- as.factor(AccidentDF$Hour)
+AccidentDF$Hour <- combineLevels(AccidentDF$Hour,c("05","06","07","08","09","10"),
+                                 newLabel = "Morning")
+AccidentDF$Hour <- combineLevels(AccidentDF$Hour,c("11","12","13","14","15","16"),
+                                 newLabel = "Midday")
+AccidentDF$Hour <- combineLevels(AccidentDF$Hour,c("17","18","19","20","21","22"),
+                                 newLabel = "Evening")
+AccidentDF$Hour <- combineLevels(AccidentDF$Hour,c("23","00","01","02","03","04"),
+                                 newLabel = "Night")
+AccidentDF$DoW <- combineLevels(AccidentDF$DoW,c("Monday","Tuesday","Wednesday","Thursday"),
+                                 newLabel = "Weekday")
+AccidentDF$DoW <- combineLevels(AccidentDF$DoW,c("Friday","Saturday","Sunday"),
+                                 newLabel = "Weekend")
+AccidentDF$Highway <- as.factor(AccidentDF$Highway)
+AccidentDF <- subset(AccidentDF,select = -Accident)
+#drop any rows with NA values & drop factors with empty levels
+GAMDF <- AccidentDF[complete.cases(AccidentDF), ]
+GAMDF[] <- lapply(GAMDF, function(x) if(is.factor(x)) factor(x) else x)
+GAMDF$SeqID <- c(1:nrow(GAMDF))
+catVars <- c("SeqID","Personal.Injury","Belts",
+             "Alcohol","Conditions",
+             "VehicleType","Color",
+             "Race","Gender",
+             "DoW","Hour")
+```
+
+```{r}
+GAMDF$Belts <- revalue(GAMDF$Belts,c("No"="BeltsNo","Yes"="BeltsYes"))
+GAMDF$Alcohol <- revalue(GAMDF$Alcohol,c("No"="AlcoholNo","Yes"="AlcoholYes"))
+GAMDF$Personal.Injury <- revalue(GAMDF$Personal.Injury,c("No"="PersInjuryNo","Yes"="PersInjuryYes"))
+GAMDF$Gender <- revalue(GAMDF$Gender,c("F"="Female","M"="Male"))
+ClustDF <- GAMDF[,catVars]
+```
+
+### CLUSTERING
+
+```{r}
+gower.dist <- daisy(ClustDF, metric = c("gower"))
+aggl.clust.c <- hclust(gower.dist, method = "complete")
+```
+
+### PLOTS
+```{r,fig.height=10,fig.width=15}
+dendro <- as.dendrogram(aggl.clust.c)
+dendro.col <- dendro %>%
+  set("branches_k_color", k = 5, value =   c("mediumblue","darkorange",
+                                              "cyan3","darkslategray","firebrick1")) %>%
+  set("branches_lwd", 0.6) %>%
+  set("labels_colors", 
+      value = c("darkslategray")) %>% 
+  set("labels_cex", 0.5)
+ggd1 <- as.ggdend(dendro.col)
+ggplot(ggd1, theme = theme_minimal()) +
+  labs(x = "Num. observations", y = "Height", title = "Dendrogram, k = 5")
+```
+```{r,fig.height=13,fig.width=13}
+### Radial Dendo Plot
+ggplot(ggd1, labels = T) + 
+  scale_y_reverse(expand = c(0.2, 0)) +
+  coord_polar(theta="x")
+```
+
+```{r,fig.height=9,fig.width=13}
+### Heatmap of Cluster Distributions
+clust.num <- cutree(aggl.clust.c, k = 5)
+HeatDF.cl <- cbind(ClustDF, clust.num)
+cust.long <- melt(data.frame(lapply(HeatDF.cl, as.character), stringsAsFactors=FALSE), 
+                  id = c("SeqID", "clust.num"), factorsAsStrings=T)
+cust.long.q <- ddply(cust.long,.(clust.num,variable,value),mutate,count=length(unique(SeqID))) %>%
+  distinct(clust.num,variable,value,count)
+# calculating the percent of each factor level in the absolute count of cluster members
+cust.long.p <- ddply(cust.long.q,.(clust.num,variable),mutate,Proportion_of_Cluster=count / sum(count)) %>%
+  arrange(clust.num)
+xlabs = c(paste("1  | ",nrow(HeatDF.cl[HeatDF.cl$clust.num==1,])),
+          paste("2  | ",nrow(HeatDF.cl[HeatDF.cl$clust.num==2,])),
+          paste("3  | ",nrow(HeatDF.cl[HeatDF.cl$clust.num==3,])),
+          paste("4  | ",nrow(HeatDF.cl[HeatDF.cl$clust.num==4,])),
+          paste("5  | ",nrow(HeatDF.cl[HeatDF.cl$clust.num==5,])))
+
+percent_of_value =data.frame(matrix(nrow = 5,ncol=24))
+colnames(percent_of_value) <- cust.long.q$value[24:47]
+
+for(i in 1:24){
+  percent_of_value[,i] = c(
+      nrow(HeatDF.cl[HeatDF.cl$clust.num==1&HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],])/nrow(HeatDF.cl[HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],]),
+      nrow(HeatDF.cl[HeatDF.cl$clust.num==2&HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],])/nrow(HeatDF.cl[HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],]),
+      nrow(HeatDF.cl[HeatDF.cl$clust.num==3&HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],])/nrow(HeatDF.cl[HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],]),
+      nrow(HeatDF.cl[HeatDF.cl$clust.num==4&HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],])/nrow(HeatDF.cl[HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],]),
+      nrow(HeatDF.cl[HeatDF.cl$clust.num==5&HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],])/nrow(HeatDF.cl[HeatDF.cl[,as.character(cust.long.q[i+23,"variable"][1])]==cust.long.q[i+23,"value"],]))
+}
+y_text = c()
+for(i in 1:24){
+  y_text <- append(y_text,rep(i,5))
+}
+
+text_props <- c()
+for(i in 1:24){
+  text_props <- append(text_props,as.character(round(percent_of_value[,i],digits = 2)))
+}
+
+heatmap.p <- ggplot(cust.long.p, aes(x = clust.num, y = factor(value, levels = c(
+  "PersInjuryNo","PersInjuryYes",
+  "BeltsNo","BeltsYes",
+  "AlcoholNo","AlcoholYes",
+  "Clear","Not_Clear",
+  "Cars","Non-Cars",
+  "Neutral_Color","NonNeutral_Color",
+  "BLACK","HISPANIC","Other","WHITE",
+  "Female","Male",
+  "Weekday","Weekend",
+  "Morning","Midday","Evening","Night"), ordered = T))) +
+  
+geom_tile(aes(fill = Proportion_of_Cluster), alpha = 0.90)+
+  labs(title = "Distribution of Factor Levels Across Clusters", x = "Cluster Number | Cluster Size", y = NULL) +
+  geom_hline(yintercept = 2.5) + 
+  geom_hline(yintercept = 4.5) + 
+  geom_hline(yintercept = 6.5) + 
+  geom_hline(yintercept = 8.5) + 
+  geom_hline(yintercept = 10.5) + 
+  geom_hline(yintercept = 12.5) +
+  geom_hline(yintercept = 16.5) +
+  geom_hline(yintercept = 18.5) +
+  geom_hline(yintercept = 20.5) +
+  geom_hline(yintercept = 24.5) +
+  scale_fill_gradient(low="white",high = "firebrick1") + 
+  
+  annotate("text",x=c(rep(1:5,24)),y=y_text,label=text_props) +
+  
+  scale_x_discrete(labels=c("1"=xlabs[1],"2"=xlabs[2],"3"=xlabs[3],"4"=xlabs[4],"5"=xlabs[5])) +
+  theme(axis.text.x = element_text(size=10),plot.title = element_text(size = 20,face="bold"))
+heatmap.p
+nrow(HeatDF.cl[HeatDF.cl$clust.num==2&HeatDF.cl$DoW=="Weekday",])/nrow(HeatDF.cl[HeatDF.cl$DoW=="Weekday",])
+```

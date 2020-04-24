@@ -1,0 +1,243 @@
+########## Initial GBM Results ##########
+Stochastic Gradient Boosting 
+
+344890 samples
+    27 predictor
+     2 classes: 'Citation', 'Warning' 
+
+No pre-processing
+Resampling: Cross-Validated (5 fold, repeated 1 times) 
+Summary of sample sizes: 275912, 275912, 275912, 275912, 275912 
+Resampling results across tuning parameters:
+
+  shrinkage  interaction.depth  n.trees  Accuracy   Kappa    
+  0.01       1                   10      0.5993650  0.0000000
+  0.01       1                   50      0.6701499  0.2239603
+  0.01       1                  100      0.6713010  0.2270906
+  0.01       2                   10      0.5993650  0.0000000
+  0.01       2                   50      0.6915625  0.2827626
+  0.01       2                  100      0.7104468  0.3336730
+  0.01       3                   10      0.5993650  0.0000000
+  0.01       3                   50      0.7098553  0.3332847
+  0.01       3                  100      0.7102120  0.3338790
+  0.10       1                   10      0.6713184  0.2271354
+  0.10       1                   50      0.7142132  0.3445266
+  0.10       1                  100      0.7213053  0.3640990
+  0.10       2                   10      0.7105135  0.3340701
+  0.10       2                   50      0.7211865  0.3635607
+  0.10       2                  100      0.7309925  0.3920914
+  0.10       3                   10      0.7102699  0.3339945
+  0.10       3                   50      0.7263504  0.3787685
+  0.10       3                  100      0.7392125  0.4177176
+
+Tuning parameter 'n.minobsinnode' was held constant at a value of 20
+Accuracy was used to select the optimal model using the largest value.
+The final values used for the model were n.trees = 100, interaction.depth = 3, shrinkage
+ = 0.1 and n.minobsinnode = 20.
+
+########## Initial GBM Variable Importance ##########
+gbm variable importance
+
+  only 20 most important variables shown (out of 131)
+
+                                                         Overall
+ShortCharge16                                            100.000
+AccidentYes                                               36.526
+MultiInfrTRUE                                             31.818
+ArrestTRUE                                                24.565
+ShortCharge22                                             20.971
+Hour                                                      20.737
+Property.DamageYes                                        12.246
+Search.ConductedYes                                        9.221
+Asset.TypeQ - Marked Laser                                 7.454
+ShortCharge20                                              6.858
+Personal.InjuryYes                                         5.672
+ShortCharge23                                              5.563
+GenderM                                                    4.348
+RaceHISPANIC                                               3.726
+SubAgency5th District, Germantown                          3.095
+Asset.TypeG - Marked Moving Radar (Stationary)             2.987
+SubAgency6th District, Gaithersburg / Montgomery Village   2.501
+ShortCharge11                                              2.307
+HighwayTRUE                                                2.216
+ShortCharge21                                              2.180
+
+########## Initial GBM Best Tune ##########
+   n.trees interaction.depth shrinkage n.minobsinnode
+18     100                 3       0.1             20
+
+########## Initial GBM Final Model ##########
+  SplitVar SplitCodePred LeftNode RightNode MissingNode ErrorReduction Weight    Prediction
+0      108  0.5000000000        1         8           9       3722.792 172445 -0.0006604903
+1       16  0.5000000000        2         6           7       1486.286 151204 -0.0235942171
+2       82  0.5000000000        3         4           5       1265.804 146963 -0.0306081145
+3       -1 -0.0374337015       -1        -1          -1          0.000 142518 -0.0374337015
+4       -1  0.1882375573       -1        -1          -1          0.000   4445  0.1882375573
+5       -1 -0.0306081145       -1        -1          -1          0.000 146963 -0.0306081145
+6       -1  0.2194577531       -1        -1          -1          0.000   4241  0.2194577531
+7       -1 -0.0235942171       -1        -1          -1          0.000 151204 -0.0235942171
+8       -1  0.1625931804       -1        -1          -1          0.000  21241  0.1625931804
+9       -1 -0.0006604903       -1        -1          -1          0.000 172445 -0.0006604903
+
+########## Initial GBM Final Model Variable Importance ##########
+                                                    Variable     Overall
+109                                            ShortCharge16 17627.73795
+17                                               AccidentYes  6438.62577
+124                                            MultiInfrTRUE  5608.71144
+83                                                ArrestTRUE  4330.16638
+114                                            ShortCharge22  3696.70153
+131                                                     Hour  3655.53713
+20                                        Property.DamageYes  2158.72672
+21                                       Search.ConductedYes  1625.39523
+99                                Asset.TypeQ - Marked Laser  1313.94907
+112                                            ShortCharge20  1208.90412
+19                                        Personal.InjuryYes   999.81190
+115                                            ShortCharge23   980.59048
+81                                                   GenderM   766.38730
+77                                              RaceHISPANIC   656.85966
+4                          SubAgency5th District, Germantown   545.51194
+89            Asset.TypeG - Marked Moving Radar (Stationary)   526.53488
+5   SubAgency6th District, Gaithersburg / Montgomery Village   440.91894
+104                                            ShortCharge11   406.75504
+102                                              HighwayTRUE   390.64720
+113                                            ShortCharge21   384.35949
+18                                                  BeltsYes   357.01893
+91                Asset.TypeI - Marked Moving Radar (Moving)   268.75380
+6               SubAgencyHeadquarters and Special Operations   234.01847
+107                                            ShortCharge14   220.71288
+103                                            MajorRoadTRUE   202.65479
+101                  Asset.TypeS - License Plate Recognition   197.05383
+3                             SubAgency4th District, Wheaton   193.76555
+106                                            ShortCharge13   187.57271
+49                                                      Year   179.26195
+25                          VehicleType05 - Light Duty Truck   129.02984
+122                                            VehStateOther   114.15927
+94                                  Asset.TypeL - Motorcycle    94.06771
+110                                            ShortCharge17    87.98626
+123                                             DLStateOther    45.63071
+23                             VehicleType03 - Station Wagon    30.96876
+2                       SubAgency3rd District, Silver Spring    22.66953
+1                            SubAgency2nd District, Bethesda     0.00000
+7                                                Temperature     0.00000
+8                                              Precipitation     0.00000
+9                                                 Wind.Speed     0.00000
+10                                               Cloud.Cover     0.00000
+11                                         Relative.Humidity     0.00000
+12                                        ConditionsOvercast     0.00000
+13                                ConditionsPartially cloudy     0.00000
+14                                     ConditionsRain, Clear     0.00000
+15                                  ConditionsRain, Overcast     0.00000
+16                          ConditionsRain, Partially cloudy     0.00000
+22                                VehicleType02 - Automobile     0.00000
+24                                 VehicleType04 - Limousine     0.00000
+26                          VehicleType06 - Heavy Duty Truck     0.00000
+27                        VehicleType07 - Truck/Road Tractor     0.00000
+28                      VehicleType08 - Recreational Vehicle     0.00000
+29                              VehicleType09 - Farm Vehicle     0.00000
+30                               VehicleType10 - Transit Bus     0.00000
+31                         VehicleType11 - Cross Country Bus     0.00000
+32                                VehicleType12 - School Bus     0.00000
+33                          VehicleType13 - Ambulance(Emerg)     0.00000
+34                      VehicleType14 - Ambulance(Non-Emerg)     0.00000
+35                               VehicleType15 - Fire(Emerg)     0.00000
+36                             VehicleType17 - Police(Emerg)     0.00000
+37                         VehicleType18 - Police(Non-Emerg)     0.00000
+38                                     VehicleType19 - Moped     0.00000
+39                            VehicleType20 - Commercial Rig     0.00000
+40                            VehicleType21 - Tandem Trailer     0.00000
+41                               VehicleType22 - Mobile Home     0.00000
+42                       VehicleType23 - Travel/Home Trailer     0.00000
+43                                    VehicleType24 - Camper     0.00000
+44                           VehicleType25 - Utility Trailer     0.00000
+45                              VehicleType26 - Boat Trailer     0.00000
+46                            VehicleType27 - Farm Equipment     0.00000
+47                                     VehicleType28 - Other     0.00000
+48                                   VehicleType29 - Unknown     0.00000
+50                                                ColorBLACK     0.00000
+51                                                 ColorBLUE     0.00000
+52                                           ColorBLUE, DARK     0.00000
+53                                          ColorBLUE, LIGHT     0.00000
+54                                               ColorBRONZE     0.00000
+55                                                ColorBROWN     0.00000
+56                                           ColorCAMOUFLAGE     0.00000
+57                                               ColorCHROME     0.00000
+58                                               ColorCOPPER     0.00000
+59                                                ColorCREAM     0.00000
+60                                                 ColorGOLD     0.00000
+61                                                 ColorGRAY     0.00000
+62                                                ColorGREEN     0.00000
+63                                            ColorGREEN, DK     0.00000
+64                                           ColorGREEN, LGT     0.00000
+65                                               ColorMAROON     0.00000
+66                                           ColorMULTICOLOR     0.00000
+67                                                  ColorN/A     0.00000
+68                                               ColorORANGE     0.00000
+69                                                 ColorPINK     0.00000
+70                                               ColorPURPLE     0.00000
+71                                                  ColorRED     0.00000
+72                                               ColorSILVER     0.00000
+73                                                  ColorTAN     0.00000
+74                                                ColorWHITE     0.00000
+75                                               ColorYELLOW     0.00000
+76                                                 RaceBLACK     0.00000
+78                                       RaceNATIVE AMERICAN     0.00000
+79                                                 RaceOTHER     0.00000
+80                                                 RaceWHITE     0.00000
+82                                                   GenderU     0.00000
+84                             Asset.TypeB - Unmarked Patrol     0.00000
+85                               Asset.TypeC - Marked VASCAR     0.00000
+86                             Asset.TypeD - Unmarked VASCAR     0.00000
+87                     Asset.TypeE - Marked Stationary Radar     0.00000
+88                   Asset.TypeF - Unmarked Stationary Radar     0.00000
+90          Asset.TypeH - Unmarked Moving Radar (Stationary)     0.00000
+92              Asset.TypeJ - Unmarked Moving Radar (Moving)     0.00000
+93                             Asset.TypeK - Aircraft Assist     0.00000
+95                           Asset.TypeM - Marked (Off-Duty)     0.00000
+96                         Asset.TypeN - Unmarked (Off-Duty)     0.00000
+97                                 Asset.TypeO - Foot Patrol     0.00000
+98                              Asset.TypeP - Mounted Patrol     0.00000
+100                             Asset.TypeR - Unmarked Laser     0.00000
+105                                            ShortCharge12     0.00000
+108                                            ShortCharge15     0.00000
+111                                            ShortCharge18     0.00000
+116                                            ShortCharge24     0.00000
+117                                            ShortCharge25     0.00000
+118                                            ShortCharge26     0.00000
+119                                            ShortCharge27     0.00000
+120                                            ShortCharge70     0.00000
+121                                            ShortCharge90     0.00000
+125                                                DoWMonday     0.00000
+126                                              DoWSaturday     0.00000
+127                                                DoWSunday     0.00000
+128                                              DoWThursday     0.00000
+129                                               DoWTuesday     0.00000
+130                                             DoWWednesday     0.00000
+
+########## Initial GBM Predict Confusion Matrix ##########
+Confusion Matrix and Statistics
+
+          Reference
+Prediction Citation Warning
+  Citation    46266   11375
+  Warning     53036  136504
+                                          
+               Accuracy : 0.7394          
+                 95% CI : (0.7377, 0.7411)
+    No Information Rate : 0.5983          
+    P-Value [Acc > NIR] : < 2.2e-16       
+                                          
+                  Kappa : 0.4178          
+                                          
+ Mcnemar's Test P-Value : < 2.2e-16       
+                                          
+            Sensitivity : 0.4659          
+            Specificity : 0.9231          
+         Pos Pred Value : 0.8027          
+         Neg Pred Value : 0.7202          
+             Prevalence : 0.4017          
+         Detection Rate : 0.1872          
+   Detection Prevalence : 0.2332          
+      Balanced Accuracy : 0.6945          
+                                          
+       'Positive' Class : Citation        
+                                          
