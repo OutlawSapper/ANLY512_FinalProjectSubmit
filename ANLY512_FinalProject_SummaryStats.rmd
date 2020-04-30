@@ -1,0 +1,240 @@
+---
+title: "SummaryStats"
+author: "Adam Imran"
+date: "3/12/2020"
+output: html_document
+---
+## initial data loading
+```{r}
+Traffic_Weather = read.csv("Traffic_Violations_Clean.csv")
+# Removal of the first column
+Traffic_Weather = Traffic_Weather[,-1]
+```
+
+## Dates
+```{r}
+# Import lubridate package
+library(lubridate)
+# Convert the type to date time
+Traffic_Weather$Date.time = ymd_hms(Traffic_Weather$Date.time)
+# Extract the minimum
+min(Traffic_Weather$Date.time)
+#Extract the maximum
+max(Traffic_Weather$Date.time)
+```
+
+## Subagency
+```{r}
+summary(Traffic_Weather$SubAgency)
+## Subagency with the most accidents - Wheaton
+sort(summary(Traffic_Weather$SubAgency))[length(summary(Traffic_Weather$SubAgency))]
+## Subagency with the most personal injuries - Wheaton
+sort(summary(Traffic_Weather$SubAgency[Traffic_Weather$Personal.Injury == "Yes"]))[7]
+```
+Subagency with the most pullovers - Wheaton
+
+## Top five crimes in the dataset
+```{r}
+sort(summary(Traffic_Weather$Description),decreasing = T)[2:6]
+```
+
+## Top 5 locations
+```{r}
+sort(summary(Traffic_Weather$Location), decreasing = T)[1:5]
+```
+
+## Deep dive What made these locations so ripe for being pulled over
+```{r}
+## Not stopping at a red light
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Location =="MONTGOMERY VILLAGE AVE @ RUSSELL AVE"]), decreasing = T)[1:3]
+## Speeding
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Location =="RIVER RD AND ROYAL DOMINION"]), decreasing = T)[1:3]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Location =="RIVER RD @ ROYAL DOMINION DR"]), decreasing = T)[1:3]
+```
+
+MONTGOMERY VILLAGE AVE @ RUSSELL AVE intersection is big for not following traffic signals
+
+RIVER RD AND ROYAL DOMINION is big for speeding
+
+## Summary stats for temperature
+```{r}
+summary(Traffic_Weather$Temperature)
+```
+
+## Summary stats of Windchill
+```{r}
+summary(Traffic_Weather$Wind.Chill)
+```
+
+## Summary stats of Heat.Index
+```{r}
+summary(Traffic_Weather$Heat.Index)
+```
+
+## Summary stats of Precipitation
+```{r}
+summary(Traffic_Weather$Precipitation)
+```
+
+## Summary stats of Snow
+```{r}
+summary(Traffic_Weather$Snow.Depth)
+```
+
+## Summary stats of Wind
+```{r}
+summary(Traffic_Weather$Wind.Speed)
+```
+
+## Summary stats of Cloud Cover
+```{r}
+summary(Traffic_Weather$Cloud.Cover)
+```
+
+## Summary stats of Conditions
+```{r}
+summary(Traffic_Weather$Conditions)[1:3]
+```
+
+## Summary stats of Accidents
+```{r}
+summary(Traffic_Weather$Accident)
+## Top location for accidents is HEWITT AVE & RIPPLING BROOK DR Bel Pre Elementary School
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Accident == "Yes"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Accident == "Yes"]), decreasing = T)[1:5]
+```
+
+## Summary stats of Personal Injury
+```{r}
+summary(Traffic_Weather$Personal.Injury)
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Personal.Injury == "Yes"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Personal.Injury == "Yes"]), decreasing = T)[1:5]
+```
+
+## Summary stats for Property damage
+```{r}
+summary(Traffic_Weather$Property.Damage)
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Property.Damage == "Yes"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Property.Damage == "Yes"]), decreasing = T)[1:5]
+```
+
+
+## Summary stats for fatal
+```{r}
+summary(Traffic_Weather$Fatal)
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Fatal == "Yes"]), decreasing = T)[1:5]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Fatal == "Yes"]), decreasing = T)[1:5]
+```
+
+## Summary stats of Alcohol
+```{r}
+summary(Traffic_Weather$Alcohol)
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Alcohol == "Yes"]), decreasing = T)[1:5]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Alcohol == "Yes"]), decreasing = T)[1:5]
+```
+
+## Top reasons searches were conducted
+## Where they were conducted
+## What was the cause
+```{r}
+summary(Traffic_Weather$Search.Conducted)
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Search.Conducted == "Yes"]), decreasing = T)[1:5]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Search.Conducted == "Yes"]), decreasing = T)[1:5]
+```
+
+## Search disposition
+```{r}
+sort(summary(Traffic_Weather$Search.Disposition), decreasing = T)
+```
+
+## What kind of search was done
+```{r}
+sort(summary(Traffic_Weather$Search.Type), decreasing = T)
+```
+
+## State
+```{r}
+sort(summary(Traffic_Weather$State), decreasing = T)
+```
+
+## Reason someone was searched
+```{r}
+sort(summary(Traffic_Weather$Search.Reason),decreasing = T)[1:5]
+```
+
+## What kind of vehicle was stopped and what color
+```{r}
+sort(summary(Traffic_Weather$Color), decreasing = T)[1:5]
+sort(summary(Traffic_Weather$VehicleType), decreasing = T)[1:5]
+```
+
+
+## Racial Breakdown - Black
+## Where it occured
+## What was the search used
+## Why were they searched
+```{r}
+summary(Traffic_Weather$Race)
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Race == "BLACK"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Race == "BLACK"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Disposition[Traffic_Weather$Race == "BLACK"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Reason[Traffic_Weather$Race == "BLACK"]), decreasing = T)[2:6]
+```
+
+## Racial Breakdown - White
+## Where it occured
+## What was the search used
+## Why were they searched
+```{r}
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Race == "WHITE"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Race == "WHITE"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Disposition[Traffic_Weather$Race == "WHITE"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Reason[Traffic_Weather$Race == "WHITE"]), decreasing = T)[2:6]
+```
+
+## Racial Breakdown - Hispanic
+## Where it occured
+## What was the search used
+## Why were they searched
+```{r}
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Race == "HISPANIC"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Race == "HISPANIC"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Disposition[Traffic_Weather$Race == "HISPANIC"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Reason[Traffic_Weather$Race == "HISPANIC"]), decreasing = T)[2:6]
+```
+
+## Racial Breakdown - Asian
+## Where it occured
+## What was the search used
+## Why were they searched
+```{r}
+sort(summary(Traffic_Weather$Location[Traffic_Weather$Race == "ASIAN"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Race == "ASIAN"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Disposition[Traffic_Weather$Race == "ASIAN"]), decreasing = T)[2:6]
+sort(summary(Traffic_Weather$Search.Reason[Traffic_Weather$Race == "ASIAN"]), decreasing = T)[2:6]
+```
+
+## Gender
+## What kinds of things did females get pulled over for?
+```{r}
+summary(Traffic_Weather$Gender)
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Gender == "F"]), decreasing = T)[2:6]
+```
+
+## Where do these drivers come from?
+```{r}
+sort(summary(Traffic_Weather$Driver.City), decreasing = T)
+```
+
+## How many got arrested and what caused their arrest?
+```{r}
+summary(Traffic_Weather$Arrest)
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Arrest == T]), decreasing = T)[1:5]
+```
+
+## Reaason for arrest
+```{r}
+summary(Traffic_Weather$Arrest.Reason)
+sort(summary(Traffic_Weather$Description[Traffic_Weather$Arrest.Reason == "Stop"]), decreasing = T)[2:6]
+```
+
